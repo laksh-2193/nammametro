@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Namma Metro</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/project.styles.css" asp-append-version="true" />
+</head>
+<style>
+    body{
+         background: url('https://images.pexels.com/photos/169677/pexels-photo-169677.jpeg') no-repeat center center fixed;
+
+    }
+    nav
+    {
+        margin:20px;
+        margin-bottom: -20px;
+    }
+   
+</style>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+        <img src="https://english.bmrc.co.in/images/logo.svg" width="300px">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+                <marquee scrollamount=10><b>Welcome to Namma Metro Services. We wish you a safe journey.</b>
+        </marquee>
+      <ul class="navbar-nav ms-auto">
+
+      </ul>
+    </div>
+  </div>
+</nav>
+    </header>
+<!-- Page Content -->
+<div class="container">
+  @RenderBody()
+ 
+</div>
+        
+
+  
+
+   
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script id="BotPenguin-messenger-widget" src="https://cdn.botpenguin.com/botpenguin.js" defer>6362079d0f45a422fe49e16a,6362074db677882e99e3512b</script>
+</body>
+</html>

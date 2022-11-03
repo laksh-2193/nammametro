@@ -1,0 +1,635 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    //string[,] greenLine = {{"Cubbon Park","CUB"},{"Hebbal","HEB"}};
+    //string[,] purpleLine = {{"Mysore Road","MYS"},{"Atria City","ATR"}};
+     Dictionary<string, string> greenLine = new Dictionary<string, string>(); 
+  greenLine.Add("Nagasandra","NGS");
+greenLine.Add("Dasarahalli","DSR");
+greenLine.Add("Jalahalli","JAL");
+greenLine.Add("Peenya Industry","PEI");
+greenLine.Add("Peenya","PEN");
+greenLine.Add("Goraguntepalya","GNT");
+greenLine.Add("Yeshwantpur","YHT");
+greenLine.Add("Sandal Soap Factory","SSF");
+greenLine.Add("Mahalakhsmi","MHL");
+greenLine.Add("Rajajinagar","RAJ");
+greenLine.Add("Mahakavi Kuvempu Road","MKP");
+greenLine.Add("Srirampura","SRM");
+greenLine.Add("Mantri Square, Sampige Road","MSR");
+greenLine.Add("Majestic, Kempegowda Station","MAJ");
+greenLine.Add("Chikpete","CHK");
+greenLine.Add("Krishna Rajendra Nagar","KRN");
+greenLine.Add("National College","NAC");
+greenLine.Add("Lalbagh","LAL");
+greenLine.Add("South End Circle","SEC");
+greenLine.Add("Jayanagar","JAY");
+greenLine.Add("Rashtreeya Vidyalaya Road","RVR");
+greenLine.Add("Banashankari","BNS");
+greenLine.Add("Jaya Prakash Nagar","JPN");
+greenLine.Add("Yelachenahalli","YLC");
+greenLine.Add("Konanakunte Cross","KNK");
+greenLine.Add("Doddakallasandra","DKS");
+greenLine.Add("Vajrahalli","VAJ");
+greenLine.Add("Thalaghattapura","TGT");
+greenLine.Add("Silk Institute","SLK");
+     Dictionary<string, string> purpleLine = new Dictionary<string, string>(); 
+purpleLine.Add("Baiyappanahalli","BYN");
+purpleLine.Add("Swami Vivekananda Road","SVR");
+purpleLine.Add("Indiranagar","INR");
+purpleLine.Add("Halasuru","HAL");
+purpleLine.Add("Trinity","TRN");
+purpleLine.Add("MG Road","MGR");
+purpleLine.Add("Cubbon Park","CUB");
+purpleLine.Add("Vidhan Soudha","VDS");
+purpleLine.Add("Sir Viswesaraya Station, Central College","VSC");
+purpleLine.Add("Majestic, Kempegowda Station","MAJ");
+purpleLine.Add("KSR Railway Station","KSR");
+purpleLine.Add("Magadi Road","MAG");
+purpleLine.Add("Hosahalli","HOS");
+purpleLine.Add("Vijayanagar","VIJ");
+purpleLine.Add("Attiguppe","ATG");
+purpleLine.Add("Gitanjali Nagar","GIT");
+purpleLine.Add("Mysore Road","MSR");
+purpleLine.Add("Nayadanahalli","NYD");
+purpleLine.Add("Rajarajeshwari","RJR");
+purpleLine.Add("Jnanabharathi","JNB");
+purpleLine.Add("Pattanagere","PAT");
+purpleLine.Add("Kengeri Bus Terminal","KBS");
+purpleLine.Add("Kengeri","KEN");
+
+    Dictionary<string, List<string>> allstations = new Dictionary<string, List<string>>();
+    
+     List<string> greenLineList = new List<string>();
+     List<string> templistgreen = new List<string>();
+        foreach (KeyValuePair<string, string> station in greenLine)
+        {
+            greenLineList.Add(station.Value);
+            templistgreen.Add(station.Key);
+
+
+        }
+        allstations.Add("green",templistgreen);
+        List<string> templistpurple = new List<string>();
+        List<string> purpleLineList = new List<string>();
+        foreach (KeyValuePair<string, string> station in purpleLine)
+        {
+            purpleLineList.Add(station.Value);
+            templistpurple.Add(station.Key);
+
+        }
+        allstations.Add("purple",templistpurple);
+        
+       
+            
+        
+
+
+        IEnumerable<string> intersect = greenLineList.AsQueryable().Intersect(purpleLineList);
+        string intersection="";
+         
+        foreach (string s in intersect)
+        {
+            intersection = s;
+
+        }
+
+        int intersectioninGreenLine = greenLineList.FindIndex(a => a.Contains(intersection));
+        int intersectioninpurpleLine = purpleLineList.FindIndex(a => a.Contains(intersection));
+        
+        //GreenLine Arrays
+        string[] greenLineBeforeIntersection = greenLineList.GetRange(0, intersectioninGreenLine).ToArray();
+        string[] greenLineAfterIntersection = greenLineList.GetRange(intersectioninGreenLine+1,greenLineList.Count-intersectioninGreenLine-1).ToArray();
+       
+
+        //PurpleLine Arrays
+        string[] purpleLineBeforeIntersection = purpleLineList.GetRange(0, intersectioninpurpleLine).ToArray();
+        string[] purpleLineAfterIntersection = purpleLineList.GetRange(intersectioninpurpleLine+1,purpleLineList.Count-intersectioninpurpleLine-1).ToArray();
+      
+        
+        @* string[][, ] map = new string[2][, ]
+        {
+            new string[, ]{greenLineBeforeIntersection,greenLineAfterIntersection},
+            new string[, ]{purpleLineBeforeIntersection, purpleLineAfterIntersection}
+        }; *@
+
+
+}
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<style>
+    body{
+       font-family: 'Montserrat';
+    }
+    .dropdownmenu {
+        padding: 10px;
+    }
+    .submitbtn
+    {
+    margin-top: 20px;
+    border: none;
+    padding: 7px;
+    padding-left: 25px;
+    padding-right: 25px;
+    cursor: pointer;
+    width:100%;
+    background-color: white;
+    border: #000 2px solid;
+    font-size: 20px;
+    }
+    .submitbtn:hover
+    {
+    margin-top: 20px;
+    border: none;
+    padding: 7px;
+    padding-left: 25px;
+    padding-right: 25px;
+    cursor: pointer;
+    width:80%;
+    background-color: black;
+    border: #fff 2px solid;
+    font-size: 20px;
+    color: #fff;
+    transition: 0.2s;
+    }
+    li
+    {
+        margin-left: -27px;
+    }
+    ul {
+  list-style: none; /* Remove default bullets */
+}
+ul li::before {
+  content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: white; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+
+select{
+    cursor: pointer;
+}  
+
+</style>
+
+<div class="shadow p-3 mb-3 bg-white rounded">
+    <form method="post">
+    <div class="row">
+        <div class="col-md-5">
+            <b>From</b><br>
+            <select name="source" id="source" class="form-select dropdownmenu" required>
+                <option value="" disabled selected hidden>--Select Source--</option>
+                <option style="color:#fff; font-size:15px;background-color:green;" disabled> GREEN LINE </option>
+                @{  
+                    foreach(KeyValuePair<string, string> station in greenLine)
+                    {
+                                        <option style="color:green; cursor:pointer;" value="@station.Value"> &nbsp; @station.Key</option>
+
+                    }                   
+
+                }
+                <option style="color:#fff; font-size:15px;background-color:purple;"  disabled> Purple Line </option>
+                @{  
+                    foreach(KeyValuePair<string, string> station in purpleLine)
+                    {
+                                                <option style="color:purple;" value="@station.Value"> &nbsp; @station.Key</option>
+
+                    }  
+                    
+                }
+            </select>
+        </div>
+        <div class="col-md-5">
+            <b>To</b><br>
+            <select name="destination" id="destination" class="form-select dropdownmenu" required>
+                <option value="" disabled selected hidden>--Select Destination--</option>
+                <option style="color:#fff; font-size:15px;background-color:green;" disabled> GREEN LINE </option>
+                @{  
+                    foreach(KeyValuePair<string, string> station in greenLine)
+                    {
+                                        <option style="color:green;" value="@station.Value"> &nbsp; @station.Key</option>
+
+                    }                   
+
+                }
+                <option style="color:#fff; font-size:15px;background-color:purple;"  disabled> Purple Line </option>
+                @{  
+                    foreach(KeyValuePair<string, string> station in purpleLine)
+                    {
+                                        <option style="color:purple;" value="@station.Value"> &nbsp; @station.Key</option>
+
+                    }  
+                    
+                }
+                 
+                
+                
+            </select>
+        </div>
+         <div class="col-md-2">
+            <button type="submit" class="submitbtn" style="margin-top: 20px;"><b>Show</b></button>
+        </div>
+    </div>
+    <br><br>
+    
+</form>
+</div>
+@{
+     if(HttpMethods.IsPost(Request.Method))
+    {
+      
+        var source = Request.Form["source"];
+        var destination = Request.Form["destination"];
+       
+        string sourceLine = (greenLineList.Contains(source)) ? "green" : "purple";
+        
+        string destinationLine = (greenLineList.Contains(destination)) ? "green" : "purple";
+        
+
+       
+       
+
+        string  startLine = "", endLine="",startbgcolor="", endbgcolor="";
+        List<string> route = new List<string>();
+        int startPoint = 0, totalStations = 0, destinationPoint = 0;
+        
+        if(String.Equals(sourceLine,destinationLine))
+        {
+            
+            if(sourceLine=="green")
+            {
+                startPoint = greenLineList.FindIndex(a => a.Contains(source));
+                destinationPoint = greenLineList.FindIndex(b => b.Contains(destination));
+                if (startPoint < greenLineList.FindIndex(b => b.Contains(destination)))
+                {
+                    
+                    
+                totalStations = greenLineList.FindIndex(b => b.Contains(destination)) - greenLineList.FindIndex(b => b.Contains(source));
+                route = greenLineList.GetRange(startPoint, totalStations+1);
+                }
+                else
+                {
+                    
+                   
+                    route = greenLineList.GetRange(destinationPoint,startPoint-destinationPoint+1);
+                    route.Reverse();
+                    
+                   
+                   
+                }
+                
+            }
+            else
+            {
+                 startPoint = purpleLineList.FindIndex(a => a.Contains(source));
+                 destinationPoint = purpleLineList.FindIndex(b => b.Contains(destination));
+                if (startPoint < purpleLineList.FindIndex(b => b.Contains(destination)))
+                {
+                   
+
+                    totalStations = purpleLineList.FindIndex(b => b.Contains(destination)) - purpleLineList.FindIndex(b => b.Contains(source));
+                    route = purpleLineList.GetRange(startPoint, totalStations + 1);
+                }
+                else
+                {
+                    route = purpleLineList.GetRange(destinationPoint,startPoint-destinationPoint+1);
+                    route.Reverse();
+
+
+                }
+                
+
+            }
+            
+
+        }
+        else
+        {
+           
+           if(sourceLine=="green")
+           {
+                startPoint = greenLineList.FindIndex(a => a.Contains(source));
+                destinationPoint = purpleLineList.FindIndex(b => b.Contains(destination));
+            if(startPoint<intersectioninGreenLine && destinationPoint<intersectioninpurpleLine)
+                {
+                    for(int i=startPoint;i<intersectioninGreenLine;i++)
+                    {
+                        route.Add(greenLineList.ElementAt(i));
+                    }
+                    for(int i=intersectioninpurpleLine;i>=destinationPoint;i--)
+                    {
+                        route.Add(purpleLineList.ElementAt(i));
+                    }
+                }
+            if(startPoint<intersectioninGreenLine && destinationPoint>intersectioninpurpleLine)
+                {
+                     for(int i=startPoint;i<intersectioninGreenLine;i++)
+                    {
+                        route.Add(greenLineList.ElementAt(i));
+                    }
+                    for(int i=intersectioninpurpleLine;i<=destinationPoint;i++)
+                    {
+                        route.Add(purpleLineList.ElementAt(i));
+                    }
+
+
+            }
+            if(startPoint>intersectioninGreenLine && destinationPoint<intersectioninpurpleLine)
+            {
+                for(int i=startPoint;i>intersectioninGreenLine;i--)
+                {
+                    route.Add(greenLineList.ElementAt(i));
+                }
+                for(int i = intersectioninpurpleLine;i>=destinationPoint;i--)
+                {
+                    route.Add(purpleLineList.ElementAt(i));
+
+                }
+
+            }
+
+            if(startPoint>intersectioninGreenLine && destinationPoint>intersectioninpurpleLine)
+            {
+                for(int i=startPoint;i>intersectioninGreenLine;i--)
+                {
+                    route.Add(greenLineList.ElementAt(i));
+                }
+                for(int i=intersectioninpurpleLine;i<=destinationPoint;i++)
+                {
+                    route.Add(purpleLineList.ElementAt(i));
+                }
+            }
+           
+             
+                
+                
+
+           }
+           else
+           { 
+            startPoint = purpleLineList.FindIndex(a => a.Contains(source));
+            destinationPoint = greenLineList.FindIndex(b => b.Contains(destination));
+            
+            if(startPoint<intersectioninpurpleLine && destinationPoint<intersectioninGreenLine)
+            {
+                for(int i=startPoint;i<intersectioninpurpleLine;i++)
+                {
+                    route.Add(purpleLineList.ElementAt(i));
+                }
+                for(int i=intersectioninGreenLine;i>=destinationPoint;i--)
+                {
+                    route.Add(greenLineList.ElementAt(i));
+                }
+            }
+
+            if(startPoint<intersectioninpurpleLine && destinationPoint>intersectioninGreenLine)
+                {
+                    for (int i = startPoint; i < intersectioninpurpleLine; i++)
+                    {
+                        route.Add(purpleLineList.ElementAt(i));
+                    }
+                    for(int i=intersectioninGreenLine;i<=destinationPoint;i++)
+                    {
+                        route.Add(greenLineList.ElementAt(i));
+                    }
+
+
+                }
+            if(startPoint>intersectioninpurpleLine && destinationPoint<intersectioninGreenLine)
+            {
+                for(int i=startPoint;i>intersectioninpurpleLine;i--)
+                {
+                    route.Add(purpleLineList.ElementAt(i));
+                }
+                for(int i=intersectioninGreenLine+1;i>=destinationPoint;i--)
+                {
+                    route.Add(greenLineList.ElementAt(i));
+                }
+            }
+
+            if(startPoint>intersectioninpurpleLine && destinationPoint>intersectioninGreenLine)
+            {
+                for(int i=startPoint;i>intersectioninpurpleLine;i--)
+                {
+                    route.Add(purpleLineList.ElementAt(i));
+                }
+                for(int i=intersectioninGreenLine;i<=destinationPoint;i++)
+                {
+                    route.Add(greenLineList.ElementAt(i));
+                }
+            }
+
+           }
+        }
+        
+       
+      
+        
+       
+                startLine = (greenLineList.Contains(route.ElementAt(0))) ? "green" : "purple";
+                
+                endLine = (greenLineList.Contains(route.Last())) ? "green" : "purple";
+                 
+            if(startLine!=endLine)
+            {
+            startbgcolor = (greenLineList.Contains(route.ElementAt(0))) ? "#aef359" : "#e39ff6";
+            endbgcolor = (greenLineList.Contains(route.Last())) ? "#aef359" : "#e39ff6";
+                <div>
+                <div class="row mx-auto">
+                    <div class="col-md-8 shadow p-3 m-1 bg-white rounded">
+                        
+                        <div class="route-lines show-lines" bis_skin_checked="1">
+                            <ul class="line" style="border-left:15px solid @startLine;background-color:@startbgcolor;">
+                                
+                              @{
+                                 string fStnname = (greenLineList.Contains(route.ElementAt(0))) ? greenLine.FirstOrDefault(x => x.Value ==
+                                        route.ElementAt(0)).Key : purpleLine.FirstOrDefault(x => x.Value == route.ElementAt(0)).Key;
+                                <li><b>@fStnname</b></li>
+                                
+                                for (int i = 1; i < route.IndexOf(intersection); i++)
+                                    {
+                                        string stationName = (greenLineList.Contains(route.ElementAt(i))) ? greenLine.FirstOrDefault(x => x.Value == route.ElementAt(i)).Key : purpleLine.FirstOrDefault(x => x.Value == route.ElementAt(i)).Key;
+                                        
+                                      
+                                        <li>@stationName</li>
+                                
+                                    }
+                              }
+                                
+
+                            </ul>
+                            <b>Change to <b style="color:@endLine;">@endLine.ToUpper() Line</b> at @allstations["green"].ElementAt(greenLineList.IndexOf(intersection))</b>
+                            <br><br>
+                            <ul class="line" style="border-left:15px solid @endLine; background-color:@endbgcolor;">
+                                
+                                @{
+                                    
+                                <li><b>@route.ElementAt(route.IndexOf(intersection)+1)</b></li>
+                                for (int i = route.IndexOf(intersection)+2; i < route.Count; i++)
+                                    {
+                                        string stationName = (greenLineList.Contains(route.ElementAt(i))) ? greenLine.FirstOrDefault(x => x.Value == route.ElementAt(i)).Key : purpleLine.FirstOrDefault(x => x.Value == route.ElementAt(i)).Key;
+                                        <li>@stationName</li>
+                                
+                                    }
+
+                                   
+                                
+                              }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 shadow p-3  bg-white rounded">
+                        <h3>Trip Details</h3>
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total Fare</td>
+                                    <td>
+                                        @{
+                                            double fare = route.Count * 1.2;
+                                            if(fare>17.00)
+                                            {
+                                                fare = Math.Ceiling(fare);
+                                            }
+                                            else
+                                            {
+                                                fare=17;
+                                            }
+                                            <text>INR @fare</text>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Stops</td>
+                                    <td>@(route.Count-2)</td>
+                                </tr>
+                                <tr>
+                                    <td>Change of lines</td>
+                                    <td>
+                                        @{
+                                            if(route.Contains(intersection))
+                                            {
+                                                <text>1</text>
+                                            }
+                                            else
+                                            {
+                                                <text>0</text>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+                
+            }
+            else
+            {
+                startLine = (greenLineList.Contains(route.ElementAt(0))) ? "green" : "purple";
+                startbgcolor = (greenLineList.Contains(route.ElementAt(0))) ? "#aef359" : "#e39ff6";
+                <div>
+                <div class="row mx-auto">
+                    <div class="col-md-8 shadow p-3 m-1 bg-white rounded">
+                        
+                        <div class="route-lines show-lines" bis_skin_checked="1">
+                            <ul class="line" style="border-left:15px solid @startLine;background-color:@startbgcolor;">
+                                
+                              @{
+                                string stationName = "";
+                                    stationName = (greenLineList.Contains(route.ElementAt(0))) ? greenLine.FirstOrDefault(x => x.Value ==
+                                        route.ElementAt(0)).Key : purpleLine.FirstOrDefault(x => x.Value == route.ElementAt(0)).Key;
+                                <li><b>@stationName</b></li>
+                                for (int i = 0; i < route.Count; i++)
+                                    {
+                                       
+                                    stationName = (greenLineList.Contains(route.ElementAt(i))) ? greenLine.FirstOrDefault(x => x.Value ==
+                                        route.ElementAt(i)).Key : purpleLine.FirstOrDefault(x => x.Value == route.ElementAt(i)).Key;
+                                    <li> @stationName </li>
+                                    }
+                              
+                              }
+                                
+
+                            </ul>
+                            At your destination - <b>@stationName</b>
+                        </div>
+                    </div>
+                    <div class="col-md-3 shadow p-3  bg-white rounded">
+                        <h3>Trip Details</h3>
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total Fare</td>
+                                    <td>
+                                        @{
+                                            double fare = route.Count * 1.2;
+                                            if(fare>17.00)
+                                            {
+                                                fare = Math.Ceiling(fare);
+                                            }
+                                            else
+                                            {
+                                                fare=17;
+                                            }
+                                            
+                                            <text>INR @fare</text>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Stops</td>
+                                                <td>@(route.Count-2)</td>
+                                </tr>
+                                <tr>
+                                    <td>Change of lines</td>
+                                    <td>
+                                        @{
+                                            if(startLine!=destinationLine)
+                                            {
+                                                <text>1</text>
+                                            }
+                                            else
+                                            {
+                                                <text>0</text>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            
+                            </tbody>
+                            
+                            
+                    </div>
+                </div>
+                </div>
+
+            }
+        
+
+       
+        
+        
+
+    }
+
+}
